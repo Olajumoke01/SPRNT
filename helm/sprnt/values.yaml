@@ -1,0 +1,28 @@
+# Minimal configuration for SPRNT
+replicaCount: 1
+
+image:
+  repository: sprnt
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+# Optional Gemini API Key for AI Coaching (runs offline rule-based coach if empty)
+geminiApiKey: ""
+
+env:
+  aiProvider: "gemini"
+  aiModel: "gemini-3.6-flash"
+  debug: "false"
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

@@ -1,0 +1,37 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: sprnt-backend:latest
+    container_name: sprnt-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - AI_PROVIDER=${AI_PROVIDER:-gemini}
+      - AI_MODEL=${AI_MODEL:-gemini-2.5-flash}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - DB_PATH=/app/data/sprnt.db
+      - DEBUG=false
+    volumes:
+      - sprnt_data:/app/data
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: sprnt-frontend:latest
+    container_name: sprnt-frontend
+    ports:
+      - "5173:80"
+    environment:
+      - BACKEND_HOST=backend
+      - BACKEND_PORT=8000
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  sprnt_data:
+    name: sprnt_data

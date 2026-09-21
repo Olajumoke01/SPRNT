@@ -146,11 +146,12 @@ class AIService:
         if not client:
             return self._fallback_task_breakdown(goal, total_blocks)
 
-        models_to_try = [self.model, "gemini-2.5-flash", "gemini-2.0-flash"]
+        models_to_try = [self.model, "gemini-3.6-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
         unique_models = []
         for m in models_to_try:
             if m and m not in unique_models:
                 unique_models.append(m)
+
 
         prompt = (
             f"You are SPRNT, an expert ADHD and focus coach. Break down the user's goal into exactly "
@@ -180,7 +181,7 @@ class AIService:
                         tasks.append(f"Block {idx}/{total_blocks}: continue focused progress on {goal}")
                     return tasks
             except Exception as e:
-                logger.warning(f"Gemini model {model_name} failed: {e}. Trying fallback if available.")
+                logger.error(f"Gemini API call failed for model '{model_name}': {e}")
                 continue
 
         return self._fallback_task_breakdown(goal, total_blocks)
@@ -190,11 +191,12 @@ class AIService:
         if not client:
             return self._fallback_checkin_message(user_response, next_task_title)
 
-        models_to_try = [self.model, "gemini-2.5-flash", "gemini-2.0-flash"]
+        models_to_try = [self.model, "gemini-3.6-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
         unique_models = []
         for m in models_to_try:
             if m and m not in unique_models:
                 unique_models.append(m)
+
 
         next_hint = (
             f"The next 15-minute task is: '{next_task_title}'."
@@ -223,10 +225,11 @@ class AIService:
                 if cleaned:
                     return cleaned
             except Exception as e:
-                logger.warning(f"Checkin generation with model {model_name} failed: {e}")
+                logger.error(f"Checkin generation with model '{model_name}' failed: {e}")
                 continue
 
         return self._fallback_checkin_message(user_response, next_task_title)
+
 
 
 ai_service = AIService()

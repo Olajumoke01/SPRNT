@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sprnt.fullname" . }}
+  labels:
+    {{- include "sprnt.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "sprnt.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "sprnt.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: sprnt
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8000
+          env:
+            - name: AI_PROVIDER
+              value: {{ .Values.env.aiProvider | quote }}
+            - name: AI_MODEL
+              value: {{ .Values.env.aiModel | quote }}
+            - name: DEBUG
+              value: {{ .Values.env.debug | quote }}
+            {{- if .Values.geminiApiKey }}
+            - name: GEMINI_API_KEY
+              value: {{ .Values.geminiApiKey | quote }}
+            {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

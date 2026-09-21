@@ -1,0 +1,15 @@
+========================================================================
+🎉 SPRNT is deployed!
+========================================================================
+
+Release Name:  {{ .Release.Name }}
+Namespace:     {{ .Release.Namespace }}
+
+To access the app locally via port-forward:
+
+  kubectl port-forward --namespace {{ .Release.Namespace }} svc/{{ include "sprnt.fullname" . }} 8000:80
+
+Now open:
+  👉 Web App:  http://localhost:8000
+  👉 API Docs: http://localhost:8000/docs
+========================================================================

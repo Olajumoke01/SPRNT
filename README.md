@@ -66,10 +66,20 @@ SPRNT/
 │       │   └── Timer.jsx       # Sprint countdown timer
 │       ├── services/
 │       │   └── api.js          # Unified frontend API client & auth token storage
+│       ├── nginx.conf.template # Nginx reverse proxy template for Docker
+│       ├── Dockerfile          # Multi-stage production frontend image
 │       └── index.css           # Design tokens & custom styling
+├── helm/
+│   └── sprnt/                  # Kubernetes Helm chart
+│       ├── Chart.yaml          # Chart metadata
+│       ├── values.yaml         # Configurable parameters (resources, ingress, PVC)
+│       └── templates/          # Deployments, Services, ConfigMap, Secret, Ingress, PVC
+├── docker-compose.yml          # Local multi-container development environment
+├── DEPLOYMENT.md               # Detailed Docker & Kubernetes deployment guide
 ├── .env                        # Local environment secrets (git-ignored)
 └── README.md
 ```
+
 
 ---
 
@@ -85,7 +95,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
 
 # Provider configuration (default: gemini, fallback: local)
 AI_PROVIDER=gemini
-AI_MODEL=gemini-2.5-flash
+AI_MODEL=gemini-3.6-flash
 ```
 
 > **Note**: If `GEMINI_API_KEY` is not provided or network is unreachable, SPRNT will seamlessly use its built-in rule-based coaching engine without failing.
@@ -115,6 +125,37 @@ npm run dev
 Open `http://localhost:5173` in your browser.
 
 ---
+
+## 🐳 Docker & Kubernetes Deployment
+
+For the full walkthrough, see [DEPLOYMENT.md](DEPLOYMENT.md).
+
+### 1. Build the Unified Image
+```bash
+docker build -t sprnt:latest .
+```
+
+### 2. Run with Docker
+```bash
+docker run -p 8000:8000 sprnt:latest
+```
+Visit `http://localhost:8000`.
+
+### 3. Deploy to Kubernetes with Helm
+
+```bash
+# Deploy with Helm (offline rule-based coaching)
+helm install sprnt ./helm/sprnt
+
+# Or deploy with your Gemini AI API Key
+helm install sprnt ./helm/sprnt --set geminiApiKey="your_api_key_here"
+
+# Port-forward to access the app
+kubectl port-forward svc/sprnt 8000:80
+```
+Visit `http://localhost:8000`.
+
+
 
 ## 📡 API Reference
 

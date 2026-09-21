@@ -1,7 +1,9 @@
 # Sprnt - Specification
 
 ## Overview
-Sprnt is an AI-guided focus tool for people with attention challenges. Users break tasks into 15-minute chunks, work through sessions with AI check-ins every 15 minutes, and track their progress.
+Sprnt is an AI-guided focus tool for people with attention challenges. Users break tasks into 15-minute chunks, work through sessions with AI check-ins every 15 minutes, and track their progress. 
+
+This application was a test in spec-driven-development
 
 ## Core Flow
 1. User creates a session and enters a goal
