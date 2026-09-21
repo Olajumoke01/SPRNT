@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #2B1E1A;
+  background-color: #F8F4EE;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #F8F4EE;
+  background-image: 
+    radial-gradient(ellipse 65% 50% at 50% 0%, rgba(254, 243, 199, 0.45), transparent 70%),
+    radial-gradient(circle 800px at 10% 20%, rgba(222, 226, 253, 0.4), transparent 60%),
+    radial-gradient(circle 600px at 90% 80%, rgba(254, 226, 226, 0.35), transparent 60%);
+  background-attachment: fixed;
+  color: #2B1E1A;
+}
+
+/* Organic focus ripple rings inspired by the illustration's concentric soundwaves */
+.bg-ripples {
+  background-image: radial-gradient(circle at 50% -20%, transparent 120px, rgba(213, 192, 167, 0.22) 121px, transparent 123px, transparent 200px, rgba(213, 192, 167, 0.2) 201px, transparent 203px, transparent 290px, rgba(213, 192, 167, 0.18) 291px, transparent 293px, transparent 390px, rgba(213, 192, 167, 0.15) 391px, transparent 393px, transparent 500px, rgba(213, 192, 167, 0.12) 501px, transparent 503px);
+}
+
+button, input, textarea {
+  font: inherit;
+}
+
+/* Premium ADHD-friendly Cards */
+.sprnt-card {
+  background: rgba(255, 253, 249, 0.92);
+  border: 1px solid #EFE7DC;
+  border-radius: 26px;
+  box-shadow: 0 10px 32px rgba(43, 30, 26, 0.05);
+  backdrop-filter: blur(12px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sprnt-card-interactive {
+  background: rgba(255, 253, 249, 0.92);
+  border: 1px solid #EFE7DC;
+  border-radius: 26px;
+  box-shadow: 0 10px 32px rgba(43, 30, 26, 0.05);
+  backdrop-filter: blur(12px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sprnt-card-interactive:hover {
+  transform: translateY(-2px);
+  border-color: #D5C0A7;
+  box-shadow: 0 16px 40px rgba(43, 30, 26, 0.08);
+}
+
+/* Glass Pill Accent */
+.sprnt-pill {
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F8F4EE;
+}
+::-webkit-scrollbar-thumb {
+  background: #D5C0A7;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #BFA487;
+}
+
+/* Micro animations */
+@keyframes gentle-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 0.9;
+  }
+}
+
+.animate-gentle-pulse {
+  animation: gentle-pulse 2.5s infinite ease-in-out;
+}
+
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-float {
+  animation: float-subtle 4s infinite ease-in-out;
+}
